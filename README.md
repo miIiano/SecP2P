@@ -26,7 +26,7 @@ This application works with Tor binary from [https://github.com/05nelsonm/TOPL-A
 
 ### Prerequisites
 
-This source code is ready to build and use, however if you want to add some more features you can clone and add your features, requesting a pull request after. This is initial code base, it might contain bugs. It comes with default  ```Tor 0.4.6.5``` binary, also recommended to not downgrade since v2 hidden service was deprecated v2 from 0.4.6 (July 2nd, 2020), and more security features are included within latest releases.
+This source code is ready to build and use, however if you want to add some more features you can clone and add your features, requesting a pull request after. This is initial code base, it might contain bugs. It comes with default  ```Tor 0.4.6.5``` binary, also recommended to not downgrade since v2 hidden service was deprecated from 0.4.6 (July 2nd, 2020), and more security features are included within latest releases.
 
 ## Built With
 
@@ -34,7 +34,7 @@ Used open-source libraries can be found in app.gradle.
 
 ## License
 
-This project is licensed under the GPL v3 License - see the [LICENSE.md](https://raw.githubusercontent.com/miIiano/SecP2P/master/LICENSE) file for details
+This project is licensed under the GPL v3 License - see the [LICENSE.md](https://github.com/miIian0/SecP2P/blob/master/LICENSE) file for details
 
 ## Credits
 
