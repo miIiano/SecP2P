@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <FrameLayout
+        android:id="@+id/left"
+        android:layout_width="64dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <ImageView
+            android:id="@+id/abort"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|right"
+            android:background="?selectableItemBackground"
+            android:padding="8dp"
+            android:scaleType="center"
+            android:tint="@color/colorAccent"
+            android:visibility="visible"
+            app:srcCompat="@drawable/ic_close" />
+
+    </FrameLayout>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_toStartOf="@id/right"
+        android:layout_toEndOf="@id/left"
+        app:cardBackgroundColor="@color/message_sent"
+        app:cardCornerRadius="@dimen/radius_adapter_message"
+        app:cardElevation="3dp"
+        app:cardUseCompatPadding="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/right"
+        app:layout_constraintStart_toEndOf="@+id/left"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/padding_media_small">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/clReply"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/padding_media_small"
+                android:background="@drawable/quoted_text_bg_adapter"
+                android:clickable="true"
+                android:padding="@dimen/padding_s"
+                android:visibility="visible"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <View
+                    android:id="@+id/bar"
+                    android:layout_width="2dp"
+                    android:layout_height="0dp"
+                    android:layout_alignTop="@id/txtReplyText"
+                    android:layout_alignBottom="@id/txtReplyText"
+                    android:background="@color/colorAccent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/imvwImage"
+                    android:layout_width="@dimen/media_reply_max_width"
+                    android:layout_height="@dimen/media_reply_max_width"
+                    android:layout_alignParentStart="true"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginStart="@dimen/padding_small"
+                    android:layout_toEndOf="@id/bar"
+                    android:adjustViewBounds="true"
+                    android:maxWidth="@dimen/media_reply_max_width"
+                    android:maxHeight="@dimen/media_reply_max_width"
+                    android:scaleType="centerCrop"
+                    android:visibility="visible"
+                    app:layout_constraintLeft_toRightOf="@id/bar"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_launcher_background" />
+
+                <TextView
+                    android:id="@+id/txtReplyText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin"
+                    android:layout_toEndOf="@id/imvwImage"
+                    android:ellipsize="end"
+                    android:gravity="start"
+                    android:maxLines="4"
+                    android:text="@string/message"
+                    app:layout_constraintStart_toEndOf="@id/imvwImage"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/message"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textSize="@dimen/message_text_size"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/clReply" />
+
+            <TextView
+                android:id="@+id/dateTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/message"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginEnd="4dp"
+                android:singleLine="true"
+                android:text="@string/date_and_time"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textSize="@dimen/status_text_size" />
+
+            <TextView
+                android:id="@+id/description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="4dp"
+                android:layout_marginStart="4dp"
+                android:layout_toEndOf="@id/dateTime"
+                app:layout_constraintTop_toBottomOf="@id/message"
+                app:layout_constraintLeft_toRightOf="@id/dateTime"
+                android:singleLine="true"
+                android:text="@string/description"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textSize="@dimen/status_text_size" />
+
+            <ImageView
+                android:id="@+id/status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@id/dateTime"
+                android:layout_alignBottom="@id/dateTime"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/description"
+                app:layout_constraintBottom_toBottomOf="@id/description"
+                android:layout_toEndOf="@id/description"
+                android:background="?selectableItemBackground"
+                android:scaleType="centerInside"
+                android:visibility="visible"
+                app:srcCompat="@drawable/ic_pending" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <FrameLayout
+        android:id="@+id/right"
+        android:layout_width="64dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentEnd="true"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/action_search"
+        android:icon="@drawable/ic_search_dark"
+        android:title="@string/search_message"
+        app:actionViewClass="md.miliano.secp2p.view.CustomSearchView"
+        app:showAsAction="always|collapseActionView" />
+
+    <item
+        android:id="@+id/action_clear_chat"
+        android:icon="@drawable/ic_clear_all"
+        android:title="@string/clear_all_messages"
+        app:showAsAction="never" />
+</menu>

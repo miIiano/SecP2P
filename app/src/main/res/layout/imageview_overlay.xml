@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ImageView
+        android:id="@+id/imvwShare"
+        android:layout_width="match_parent"
+        android:layout_alignParentBottom="true"
+        app:srcCompat="@drawable/ic_share"
+        android:padding="@dimen/padding_l"
+        android:background="?attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        android:layout_height="wrap_content" />
+
+    <ImageView
+        android:id="@+id/imvwPlay"
+        android:layout_width="wrap_content"
+        android:tint="@color/colorGrey"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:clickable="true"
+        android:visibility="gone"
+        android:focusable="true"
+        app:srcCompat="@drawable/ic_play_circle_svg"
+        android:layout_centerInParent="true"
+        android:layout_height="wrap_content" />
+
+</RelativeLayout>

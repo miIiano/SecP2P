@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/menu_take_picture"
+        android:icon="@drawable/ic_camera"
+        app:iconTint="@color/colorAccent"
+        android:title="@string/take_picture" />
+
+    <item
+        android:id="@+id/menu_record_video"
+        android:icon="@drawable/ic_video_cam"
+        app:iconTint="@color/colorAccent"
+        app:iconTintMode="src_atop"
+        android:title="@string/record_video" />
+
+
+    <item
+        android:id="@+id/menu_attach_image"
+        android:icon="@drawable/ic_image"
+        app:iconTint="@color/colorAccent"
+        android:title="@string/image" />
+
+    <item
+        android:id="@+id/menu_attach_video"
+        android:icon="@drawable/ic_video"
+        app:iconTint="@color/colorAccent"
+        android:title="@string/video" />
+
+    <item
+        android:id="@+id/menu_attach_file"
+        android:icon="@drawable/ic_file"
+        app:iconTint="@color/colorAccent"
+        android:title="@string/file" />
+</menu>

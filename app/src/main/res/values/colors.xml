@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimaryDark">#0e3b43</color>
+    <color name="colorPrimary">#52b788</color>
+    <color name="colorAccent">#65532f</color>
+    <color name="colorNotification">#312509</color>
+
+    <color name="colorWhite">#fff</color>
+    <color name="message_received">#E3E0E0</color>
+    <color name="message_sent">#e4b7e5</color>
+    <color name="colorGrey">#D5D5D5</color>
+    <color name="background">#C8E3CC</color>
+    <color name="colorBlack">#1B1919</color>
+    <color name="colorSlightBlack">#353333</color>
+    <color name="iconTint">#484848</color>
+    <color name="background_fab_counter">#FF424242</color>
+</resources>

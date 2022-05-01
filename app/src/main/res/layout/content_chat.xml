@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingTop="?attr/actionBarSize">
+
+    <FrameLayout
+        android:id="@+id/flMessages"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/cardMessage">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rcvwChat"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:scrollbars="vertical">
+
+        </androidx.recyclerview.widget.RecyclerView>
+
+        <ProgressBar
+            android:id="@+id/progressbar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="16dp"
+            android:layout_gravity="top"
+            android:layout_marginTop="-8dp"
+            android:indeterminate="true"
+            android:max="100" />
+
+        <TextView
+            android:id="@+id/noMessages"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="32dp"
+            android:text="@string/no_messages_yet"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    </FrameLayout>
+
+    <md.miliano.secp2p.view.TorStatusView
+        android:id="@+id/torStatusView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:background="@color/background">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="8dp">
+
+                <TextView
+                    android:id="@+id/status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="8dp"
+                    android:backgroundTintMode="src_atop"
+                    android:clickable="true"
+                    android:drawableTint="@color/colorAccent"
+                    android:focusable="true"
+                    android:padding="8dp"
+                    android:singleLine="true"
+                    app:srcCompat="@drawable/ic_down" />
+            </LinearLayout>
+        </FrameLayout>
+    </md.miliano.secp2p.view.TorStatusView>
+
+    <RelativeLayout
+        android:id="@+id/rlFab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/cardMessage"
+        android:layout_margin="@dimen/margin"
+        android:layout_alignParentEnd="true">
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:tint="@color/colorWhite"
+            android:visibility="invisible"
+            android:layout_marginStart="@dimen/margin_xl"
+            app:fabSize="mini"
+            app:srcCompat="@drawable/ic_down" />
+
+        <TextView
+            android:id="@+id/txtFabCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:elevation="7dp"
+            android:gravity="center"
+            android:visibility="invisible"
+            android:padding="2dp"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/status_text_size"
+            android:background="@drawable/bg_fab_counter"
+            android:text="100" />
+    </RelativeLayout>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardMessage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="@dimen/margin"
+        android:background="@color/message_received"
+        app:cardCornerRadius="@dimen/message_send_card_radius">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/clReply"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin"
+                android:background="@drawable/quoted_text_bg"
+                android:clickable="true"
+                android:paddingLeft="@dimen/padding"
+                android:paddingRight="@dimen/padding"
+                android:paddingTop="@dimen/padding"
+                android:paddingBottom="@dimen/padding_small"
+                android:visibility="visible">
+
+                <ImageView
+                    android:id="@+id/bar"
+                    android:layout_width="2dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@id/txtReplyText"
+                    android:layout_alignBottom="@id/txtReplyText"
+                    android:background="@color/colorAccent" />
+
+                <ImageView
+                    android:id="@+id/imvwImage"
+                    android:layout_width="@dimen/media_reply_max_width"
+                    android:layout_height="@dimen/media_reply_max_width"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginStart="@dimen/padding_small"
+                    android:layout_toEndOf="@id/bar"
+                    android:adjustViewBounds="true"
+                    android:maxWidth="@dimen/media_reply_max_width"
+                    android:maxHeight="@dimen/media_reply_max_width"
+                    android:scaleType="fitStart"
+                    app:srcCompat="@drawable/ic_launcher_background" />
+
+                <TextView
+                    android:id="@+id/txtReplyText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_large"
+                    android:layout_toStartOf="@id/imvwClose"
+                    android:layout_toEndOf="@id/imvwImage"
+                    android:ellipsize="end"
+                    android:gravity="start"
+                    android:maxLines="4"
+                    android:text="@string/message" />
+
+                <ImageView
+                    android:id="@+id/imvwClose"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_alignParentEnd="true"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:tint="@color/colorAccent"
+                    android:tintMode="src_atop"
+                    app:srcCompat="@drawable/ic_close" />
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/audio"
+                    style="?android:attr/buttonStyleSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:background="?selectableItemBackground"
+                    android:text="@string/send"
+                    android:tint="@color/colorAccent"
+                    app:srcCompat="@drawable/ic_mic" />
+
+                <md.miliano.secp2p.view.ContentInfoEditText
+                    android:id="@+id/txtMessage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:hint="@string/enter_your_text_here_"
+                    android:imeOptions="flagNoExtractUi|actionSend|flagNoEnterAction"
+                    android:inputType="textShortMessage|textAutoCorrect|textCapSentences|textMultiLine"
+                    android:maxLines="4"
+                    android:textSize="@dimen/message_text_size" />
+
+                <ImageButton
+                    android:id="@+id/send"
+                    style="?android:attr/buttonStyleSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:background="?selectableItemBackground"
+                    android:text="@string/send"
+                    android:tint="@color/colorAccent"
+                    app:srcCompat="@drawable/ic_attach" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+</RelativeLayout>

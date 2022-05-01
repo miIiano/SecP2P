@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="md.miliano.secp2p">
+
+
+    <uses-sdk
+        android:targetSdkVersion="31"
+        tools:overrideLibrary="com.google.zxing.client.android" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission
+        android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
+    <uses-feature android:name="android.hardware.camera"
+        android:required="true" />
+    <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES"/>
+
+    <application
+        android:name=".MainApp"
+        android:allowBackup="true"
+        android:appComponentFactory="SecP2P"
+        android:extractNativeLibs="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:networkSecurityConfig="@xml/network_security_config"
+        android:roundIcon="@mipmap/ic_launcher"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        tools:replace="android:appComponentFactory"
+        tools:targetApi="m">
+
+        <activity
+            android:name=".RequestActivity"
+            android:label="@string/title_activity_request"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".AboutActivity"
+            android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar" />
+        <activity
+            android:name=".VideoViewActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
+
+        <service
+            android:name=".service.VideoTranscodeService"
+            android:exported="false" />
+
+        <activity android:name=".ImportIdActivity" />
+        <activity
+            android:name=".CreateNewActivity"
+            android:configChanges="uiMode" />
+        <activity
+            android:name=".StartActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".ShareMediaActivity"
+            android:exported="false"
+            android:label="@string/title_activity_share_media"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustPan">
+            <intent-filter>
+                <action android:name="android.intent.action.SEND" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data android:mimeType="*/*" />
+            </intent-filter>
+        </activity>
+
+        <receiver
+            android:name=".AutoStartReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+
+        <activity
+            android:name=".SendMediaActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".SettingsActivity"
+            android:configChanges="uiMode"
+            android:label="@string/title_activity_settings"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".ChatActivity"
+            android:configChanges="orientation|screenSize|screenLayout|keyboard|keyboardHidden"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <service
+            android:name=".service.SecP2PHostService"
+            android:enabled="true"
+            android:exported="true" />
+
+        <activity
+            android:name=".MainActivity"
+            android:configChanges="orientation|screenSize|screenLayout|keyboard|keyboardHidden"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
+            android:theme="@style/Base.Theme.AppCompat" />
+
+        <provider
+            android:name=".GenericFileProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths" />
+        </provider>
+    </application>
+
+</manifest>

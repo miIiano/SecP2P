@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <SwitchPreference
+        android:defaultValue="true"
+        android:key="notify"
+        android:summary="@string/notifications_summary"
+        android:title="@string/notifications" />
+
+    <SwitchPreference
+        android:defaultValue="true"
+        android:key="sound"
+        android:summary="@string/sounds_summary"
+        android:title="@string/sounds" />
+
+    <RingtonePreference
+        android:key="ringtone"
+        android:ringtoneType="notification"
+        android:showDefault="true"
+        android:summary="@string/ringtone_summary"
+        android:title="@string/ringtone" />
+
+    <SwitchPreference
+        android:defaultValue="false"
+        android:key="use_dark_mode"
+        android:summary="@string/dark_mode_description"
+        android:title="@string/use_dark_mode" />
+
+    <Preference
+        android:key="export_id"
+        android:summary="@string/export_summary"
+        android:title="@string/export_id" />
+
+
+    <Preference
+        android:key="about"
+        android:summary="About SecP2P, libraries used, licenses"
+        android:title="About" />
+</PreferenceScreen>

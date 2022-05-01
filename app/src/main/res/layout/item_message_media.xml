@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/llMainView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?android:attr/selectableItemBackground"
+    android:orientation="horizontal">
+
+    <FrameLayout
+        android:id="@+id/left"
+        android:layout_width="64dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true">
+
+        <ImageView
+            android:id="@+id/abort"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|right"
+            android:background="?selectableItemBackground"
+            android:padding="8dp"
+            android:scaleType="center"
+            android:tint="@color/colorAccent"
+            android:visibility="visible"
+            app:srcCompat="@drawable/ic_close" />
+
+    </FrameLayout>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toStartOf="@id/right"
+        android:layout_toEndOf="@id/left"
+        app:cardBackgroundColor="@color/message_sent"
+        app:cardCornerRadius="6dp"
+        app:cardElevation="3dp"
+        app:cardUseCompatPadding="true">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingLeft="@dimen/padding_media_small"
+            android:paddingTop="@dimen/padding_media_small"
+            android:paddingRight="@dimen/padding_media_small"
+            android:paddingBottom="@dimen/padding_media_small">
+
+            <RelativeLayout
+                android:id="@+id/rlMedia"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/imvwConstraint"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/imvwImage"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_centerHorizontal="true"
+                        android:adjustViewBounds="true"
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:scaleType="centerCrop"
+                        android:src="@mipmap/ic_launcher"
+                        app:layout_constraintDimensionRatio="4:3" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignStart="@id/imvwConstraint"
+                    android:layout_alignTop="@id/imvwConstraint"
+                    android:layout_alignEnd="@id/imvwConstraint"
+                    android:layout_alignBottom="@id/imvwConstraint">
+
+                    <com.github.abdularis.buttonprogress.DownloadButtonProgress
+                        android:id="@+id/progressbar"
+                        android:layout_width="@dimen/circle_progress_bar_size"
+                        android:layout_height="@dimen/circle_progress_bar_size"
+                        android:layout_centerInParent="true"
+                        android:visibility="gone"
+                        app:maxProgress="100"
+                        app:state="FINISHED" />
+
+                    <ImageView
+                        android:id="@+id/imvePlayButton"
+                        android:layout_width="@dimen/play_button_size"
+                        android:layout_height="@dimen/play_button_size"
+                        android:layout_centerInParent="true"
+                        android:background="@drawable/circular_shape"
+                        android:tint="@color/colorAccent"
+                        android:tintMode="src_atop"
+                        android:visibility="visible"
+                        app:srcCompat="@drawable/ic_play_circle_svg" />
+
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/message"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/imvwConstraint"
+                    android:layout_alignStart="@+id/imvwConstraint"
+                    android:layout_alignEnd="@+id/imvwConstraint"
+                    android:paddingTop="@dimen/padding_s"
+                    android:text="@string/message"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textSize="@dimen/message_text_size" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/margin_small">
+
+                <TextView
+                    android:id="@+id/dateTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="4dp"
+                    android:singleLine="true"
+                    android:text="@string/date_and_time"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    android:textSize="@dimen/status_text_size" />
+
+                <TextView
+                    android:id="@+id/description"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="4dp"
+                    android:layout_toEndOf="@id/dateTime"
+                    android:singleLine="true"
+                    android:text="@string/description"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    android:textSize="@dimen/status_text_size" />
+
+                <ImageView
+                    android:id="@+id/status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@id/dateTime"
+                    android:layout_alignBottom="@id/dateTime"
+                    android:layout_toEndOf="@id/description"
+                    android:background="?selectableItemBackground"
+                    android:scaleType="centerInside"
+                    android:visibility="gone"
+                    app:srcCompat="@drawable/ic_pending" />
+            </RelativeLayout>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <FrameLayout
+        android:id="@+id/right"
+        android:layout_width="64dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentEnd="true" />
+
+</RelativeLayout>

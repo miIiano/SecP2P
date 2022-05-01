@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/llMainView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?android:attr/selectableItemBackground"
+    android:focusable="true"
+    android:clickable="true"
+    android:orientation="horizontal">
+
+    <FrameLayout
+        android:id="@+id/left"
+        android:layout_width="64dp"
+        android:layout_alignParentBottom="true"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/abort"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|right"
+            android:background="?selectableItemBackground"
+            android:padding="8dp"
+            android:scaleType="center"
+            android:tint="@color/colorAccent"
+            android:visibility="visible"
+            app:srcCompat="@drawable/ic_close" />
+
+    </FrameLayout>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/left"
+        android:layout_toStartOf="@id/right"
+        app:cardBackgroundColor="@color/message_sent"
+        app:cardCornerRadius="@dimen/radius_adapter_message"
+        app:cardElevation="3dp"
+        app:cardUseCompatPadding="true">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/padding_media_small">
+
+            <RelativeLayout
+                android:id="@+id/rlReply"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/padding_media_small"
+                android:background="@drawable/quoted_text_bg_adapter"
+                android:clickable="true"
+                android:padding="@dimen/padding_s"
+                android:visibility="visible">
+
+                <ImageView
+                    android:id="@+id/bar"
+                    android:layout_width="2dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@id/txtReplyText"
+                    android:layout_alignBottom="@id/txtReplyText"
+                    android:background="@color/colorAccent" />
+
+                <ImageView
+                    android:id="@+id/imvwReply"
+                    android:layout_width="@dimen/media_reply_max_width"
+                    android:layout_height="@dimen/media_reply_max_width"
+                    android:layout_alignParentStart="true"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginStart="@dimen/padding_small"
+                    android:layout_toEndOf="@id/bar"
+                    android:adjustViewBounds="true"
+                    android:maxWidth="@dimen/media_reply_max_width"
+                    android:maxHeight="@dimen/media_reply_max_width"
+                    android:scaleType="centerCrop"
+                    android:visibility="visible"
+                    app:srcCompat="@drawable/ic_launcher_background" />
+
+                <TextView
+                    android:id="@+id/txtReplyText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin"
+                    android:layout_toEndOf="@id/imvwReply"
+                    android:ellipsize="end"
+                    android:gravity="start"
+                    android:visibility="visible"
+                    android:maxLines="3"
+                    android:text="@string/message" />
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/message"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="laksjd;lkfja;l"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textSize="@dimen/message_text_size" />
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_small"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/dateTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="4dp"
+                    android:singleLine="true"
+                    android:text="@string/date_and_time"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    android:textSize="@dimen/status_text_size" />
+
+                <TextView
+                    android:id="@+id/description"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="4dp"
+                    android:layout_toEndOf="@id/dateTime"
+                    android:singleLine="true"
+                    android:text="@string/description"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    android:textSize="@dimen/status_text_size" />
+
+                <ImageView
+                    android:id="@+id/status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@id/dateTime"
+                    android:layout_alignBottom="@id/dateTime"
+                    android:layout_toEndOf="@id/description"
+                    android:background="?selectableItemBackground"
+                    android:scaleType="centerInside"
+                    android:visibility="gone"
+                    app:srcCompat="@drawable/ic_pending" />
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <FrameLayout
+        android:id="@+id/right"
+        android:layout_width="64dp"
+        android:layout_alignParentEnd="true"
+        android:layout_height="match_parent" />
+
+</RelativeLayout>

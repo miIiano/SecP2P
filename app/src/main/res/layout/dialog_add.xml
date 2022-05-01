@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/add_alias"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/alias"
+            android:imeOptions="flagNoExtractUi"
+            android:inputType="textPersonName|textCapWords|textCapSentences"
+            android:singleLine="true" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/add_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/id"
+            android:imeOptions="flagNoExtractUi"
+            android:inputType="textPersonName"
+            android:singleLine="true" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/add_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="top|start"
+            android:hint="@string/tell_about_yourself"
+            android:imeOptions="flagNoExtractUi"
+            android:inputType="textMultiLine"
+            android:maxLines="6" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+</LinearLayout>

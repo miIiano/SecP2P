@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/llMainView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?attr/selectableItemBackground"
+    android:clickable="true"
+    android:focusable="true"
+    android:orientation="horizontal"
+    android:padding="@dimen/margin_xl">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="@dimen/dp_image_size"
+        android:layout_height="@dimen/dp_image_size"
+        android:layout_gravity="center"
+        android:layout_marginEnd="@dimen/margin_large"
+        android:clickable="true"
+        android:focusable="true"
+        app:srcCompat="@drawable/ic_person" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:gravity="start"
+            android:text="یہ کوئی نام ہے"
+            android:paddingStart="@dimen/padding_s"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_marginTop="@dimen/margin_small"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/status"
+                android:layout_width="wrap_content"
+                android:layout_alignParentStart="true"
+                android:tintMode="src_atop"
+                android:tint="@color/colorAccent"
+                android:visibility="gone"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/ic_pending" />
+
+            <TextView
+                android:id="@+id/address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@id/status"
+                android:ellipsize="end"
+                android:paddingStart="@dimen/padding_s"
+                android:layout_alignTop="@id/status"
+                android:layout_alignBottom="@id/status"
+                android:drawableStart="@drawable/ic_image"
+                android:gravity="center_vertical"
+                android:drawablePadding="@dimen/padding_s"
+                android:singleLine="true"
+                android:text="aifjnelsdfjpeuvb"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+        </RelativeLayout>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/badge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:singleLine="true"
+            android:text="a minute ago"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textSize="@dimen/status_text_size" />
+
+        <TextView
+            android:id="@+id/count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_marginTop="@dimen/margin"
+            android:background="@drawable/bg_contact_counter"
+            android:gravity="center"
+            android:singleLine="true"
+            android:text="555"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@color/colorWhite" />
+
+    </LinearLayout>
+
+</LinearLayout>

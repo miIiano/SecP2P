@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_share"
+            android:icon="@drawable/ic_share"
+            android:title="@string/share" />
+        <item
+            android:id="@+id/nav_change_alias"
+            android:icon="@drawable/ic_edit"
+            android:title="@string/change_alias" />
+        <item
+            android:id="@+id/nav_show_qr"
+            android:icon="@drawable/ic_qr_code"
+            android:title="@string/show_qr" />
+
+        <item
+            android:id="@+id/nav_copy_id"
+            android:icon="@drawable/ic_copy"
+            android:title="@string/copy_id" />
+
+        <item
+            android:id="@+id/nav_about"
+            android:icon="@drawable/ic_about"
+            android:title="@string/about" />
+    </group>
+</menu>

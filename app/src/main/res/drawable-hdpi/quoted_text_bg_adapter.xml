@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="@color/background" />
+    <corners
+        android:topLeftRadius="@dimen/radius_adapter_message"
+        android:bottomLeftRadius="@dimen/radius_adapter_message"
+        android:bottomRightRadius="@dimen/radius_adapter_message"
+        android:topRightRadius="@dimen/radius_adapter_message" />
+</shape>

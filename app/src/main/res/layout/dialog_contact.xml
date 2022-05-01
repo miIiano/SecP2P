@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="16dp">
+
+
+    <TextView
+        android:singleLine="true"
+        android:paddingLeft="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Anonymous"
+        android:id="@+id/name" />
+
+    <TextView
+        android:singleLine="true"
+        android:paddingLeft="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="ajfuezwhfkduvkro"
+        android:id="@+id/address" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="12dp"></FrameLayout>
+
+    <LinearLayout
+        android:id="@+id/changeName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?selectableItemBackground"
+        android:clickable="true"
+        android:orientation="horizontal"
+        android:paddingLeft="16dp"
+        android:paddingTop="4dp"
+        android:paddingRight="16dp"
+        android:paddingBottom="4dp">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|left"
+            android:padding="8dp"
+            android:tint="@color/colorAccent"
+            app:srcCompat="@drawable/ic_edit" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|left"
+            android:padding="8dp"
+            android:text="@string/change_alias" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/copyId"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?selectableItemBackground"
+        android:clickable="true"
+        android:orientation="horizontal"
+        android:paddingLeft="16dp"
+        android:paddingTop="4dp"
+        android:paddingRight="16dp"
+        android:paddingBottom="4dp">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|left"
+            android:padding="8dp"
+            android:tint="@color/colorAccent"
+            app:srcCompat="@drawable/ic_copy" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|left"
+            android:padding="8dp"
+            android:text="@string/copy_id" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/delete"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?selectableItemBackground"
+        android:clickable="true"
+        android:orientation="horizontal"
+        android:paddingLeft="16dp"
+        android:paddingTop="4dp"
+        android:paddingRight="16dp"
+        android:paddingBottom="4dp">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|left"
+            android:padding="8dp"
+            android:tint="@color/colorAccent"
+            app:srcCompat="@drawable/ic_delete" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|left"
+            android:padding="8dp"
+            android:text="@string/delete" />
+
+    </LinearLayout>
+
+
+    <!--
+        <TextView
+            android:autoLink="all"
+            android:paddingLeft="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="  http://google.com  http:google.com  onion://dklajwldawdawd/?n=alkjwd    " />
+    -->
+
+
+</LinearLayout>

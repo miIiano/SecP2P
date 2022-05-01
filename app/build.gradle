@@ -1,0 +1,85 @@
+apply plugin: 'com.android.application'
+apply plugin: 'realm-android'
+apply plugin: 'com.mikepenz.aboutlibraries.plugin'
+
+android {
+    compileSdkVersion 31
+    buildToolsVersion '28.0.3'
+
+    defaultConfig {
+        applicationId "md.miliano.secp2p"
+        minSdkVersion 26
+        targetSdkVersion 31
+        versionCode 1
+        versionName "1.5.0"
+        vectorDrawables.useSupportLibrary = true
+        multiDexEnabled true
+    }
+
+    applicationVariants.all { variant ->
+        variant.outputs.all {
+            def flavor = variant.name
+            def versionName = variant.versionName
+            outputFileName = "SecP2P_${flavor}_${versionName}_${versionCode}.apk"
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    externalNativeBuild {
+        cmake {
+            path file('cpp/CMakeLists.txt')
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation files('libs/core-1.52.0.0.jar')
+    implementation files('libs/prov-1.52.0.0.jar')
+
+    implementation 'androidx.appcompat:appcompat:1.4.1'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'androidx.fragment:fragment:1.4.1'
+    implementation 'androidx.multidex:multidex:2.0.1'
+    implementation 'androidx.cardview:cardview:1.0.0'
+    implementation 'com.google.android.material:material:1.5.0'
+    implementation 'androidx.multidex:multidex:2.0.1'
+    implementation 'androidx.recyclerview:recyclerview:1.2.1'
+    implementation 'com.theartofdev.edmodo:android-image-cropper:2.7.0'
+    implementation 'com.google.zxing:core:3.3.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.3'
+    implementation 'com.google.code.gson:gson:2.8.6'
+    implementation 'com.github.bumptech.glide:glide:4.11.0'
+    implementation 'jp.wasabeef:glide-transformations:4.1.0'
+    implementation 'commons-codec:commons-codec:1.14'
+    implementation 'com.squareup.okhttp3:okhttp:4.4.0'
+    implementation 'com.liulishuo.filedownloader:library:1.7.7'
+    implementation 'cn.dreamtobe.filedownloader:filedownloader-okhttp3-connection:1.1.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
+    implementation 'com.devlomi.record-view:record-view:2.0.1'
+    implementation 'com.4ert:audioview:1.4.12'
+    implementation 'io.realm:android-adapters:3.1.0'
+    implementation 'org.nanohttpd:nanohttpd:2.3.1'
+    implementation 'com.github.abdularis:androidbuttonprogress:1.0.2'
+    implementation 'com.adityak:browsemyfiles:1.9'
+    implementation 'com.github.MasayukiSuda:Mp4Composer-android:v0.3.9'
+    implementation 'com.novoda:merlin:1.2.1'
+    implementation 'com.jarvanmo:exoplayerview:2.1.5'
+    implementation "com.mikepenz:aboutlibraries:8.1.1"
+    implementation 'com.github.stfalcon:stfalcon-imageviewer:1.0.1'
+
+    implementation "io.matthewnelson.topl-android:tor-binary:0.4.6.5"
+    implementation "androidx.activity:activity:1.4.0"
+
+}
