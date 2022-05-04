@@ -567,9 +567,9 @@ public class Server {
         PublicKey publicKey = keyPair.getPublic();
         PrivateKey privateKey = keyPair.getPrivate();
         Base64.Encoder encoder = Base64.getEncoder();
-
+        Writer out = null;
         try {
-            Writer out = new FileWriter(dir + "/rsaPublicKey");
+            out = new FileWriter(dir + "/rsaPublicKey");
             out.write("-----BEGIN RSA PUBLIC KEY-----\n");
             out.write(encoder.encodeToString(publicKey.getEncoded()));
             out.write("\n-----END RSA PUBLIC KEY-----\n");
@@ -578,9 +578,17 @@ public class Server {
             out.write("-----BEGIN RSA PRIVATE KEY-----\n");
             out.write(encoder.encodeToString(privateKey.getEncoded()));
             out.write("\n-----END RSA PRIVATE KEY-----\n");
-            out.close();
+
         } catch (Exception e) {
             throw new RuntimeException(e);
+        }finally {
+            if (out != null) {
+                try {
+                    out.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
     }
 

@@ -84,13 +84,14 @@ public class SecP2PHostService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        String action = intent.getAction()!=null?intent.getAction():Util.FGSAction.START.name();
         if(BuildConfig.DEBUG){
-            Toast.makeText(this, "SecP2PHostService -> action : " + intent.getAction().toUpperCase(Locale.ROOT), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "SecP2PHostService -> action : " + action.toUpperCase(Locale.ROOT), Toast.LENGTH_SHORT).show();
         }
-        if (intent.getAction().equals(Util.FGSAction.STOP.name())) {
+        if (action.equals(Util.FGSAction.STOP.name())) {
             stopForeground(true);
             stopSelf();
-        } else if (intent.getAction().equals(Util.FGSAction.START.name())) {
+        } else if (action.equals(Util.FGSAction.START.name())) {
             Server.getInstance(this);
             Tor.getInstance(this);
             Client.getInstance(this);
