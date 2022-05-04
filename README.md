@@ -30,7 +30,7 @@ This source code is ready to build and use, however if you want to add some more
 
 ## Built With
 
-Used open-source libraries can be found in app.gradle.
+Open-source libraries can be found in app.gradle.
 
 ## License
 
@@ -42,7 +42,7 @@ There many open-source libraries used in this application, and icons have been t
 
 ## Acknowledgments
 
-I developed this app because I couldn't find any app that was mature enough to provide encrypted messaging over tor with media support. There is one very old application [Chat.onion](https://github.com/onionApps/Chat.onion) that I have inspired or improved an idea or two.
+I developed this app because I couldn't find any app that was mature enough to provide encrypted messaging over tor with media support. There is one very old application [Chat.onion](https://github.com/onionApps/Chat.onion) that I have improved few ideas.
 
 ## Security
 
