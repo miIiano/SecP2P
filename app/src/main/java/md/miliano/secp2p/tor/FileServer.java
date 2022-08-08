@@ -25,7 +25,7 @@ public class FileServer extends NanoHTTPD {
 
     private static final String TAG = "FileServer";
 
-    private Context mContext;
+    private final Context mContext;
 
     private static FileServer mInstance;
 

@@ -43,7 +43,7 @@ public class TorStatusView extends LinearLayout {
         }
     }
 
-    private Tor.LogListener mLogListener = () -> post(() -> update());
+    private final Tor.LogListener mLogListener = () -> post(() -> update());
 
     @Override
     protected void onDetachedFromWindow() {

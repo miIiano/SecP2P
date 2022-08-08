@@ -54,7 +54,7 @@ public class Util {
 
     public static final File EXTERNAL_FOLDER = new File(Environment.getExternalStorageDirectory(), "SecP2P");
 
-    private static Charset utf8 = StandardCharsets.UTF_8;
+    private static final Charset utf8 = StandardCharsets.UTF_8;
 
     public static String base64encode(byte[] data) {
         return Base64.encodeToString(data, Base64.NO_WRAP);

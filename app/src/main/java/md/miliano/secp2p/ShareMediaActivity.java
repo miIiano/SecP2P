@@ -299,9 +299,9 @@ public class ShareMediaActivity extends AppCompatActivity {
 
     class ResizeImage extends AsyncTask<String, Void, String> {
 
-        private String mSender;
-        private String mMessage;
-        private int mType;
+        private final String mSender;
+        private final String mMessage;
+        private final int mType;
         private byte[] thumbnail;
 
         public ResizeImage(String sender, String message, int type) {
@@ -363,7 +363,7 @@ public class ShareMediaActivity extends AppCompatActivity {
     private class CopyFromUri extends AsyncTask<Uri, Void, String> {
 
         private ProgressDialog progressDialog;
-        private Context mContext;
+        private final Context mContext;
 
         public CopyFromUri(Context context) {
             mContext = context;

@@ -26,6 +26,9 @@ import java.security.KeyPair;
 import java.security.KeyPairGenerator;
 import java.security.PrivateKey;
 import java.security.PublicKey;
+import java.security.SecureRandom;
+import java.security.Security;
+import java.security.spec.ECGenParameterSpec;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.HashMap;
@@ -53,15 +56,15 @@ public class Server {
 
     private static Server instance;
     private String socketName;
-    private Context mContext;
-    private String TAG = "Server";
-    private ArrayList<Listener> mListeners = new ArrayList<>();
+    private final Context mContext;
+    private final String TAG = "Server";
+    private final ArrayList<Listener> mListeners = new ArrayList<>();
     private ServiceRegisterListener mServiceRegisterListener;
-    private AtomicBoolean mServiceRegistered = new AtomicBoolean(false);
-    private LocalServerSocket serverSocket;
-    private LocalSocket ls;
+    private final AtomicBoolean mServiceRegistered = new AtomicBoolean(false);
+    private final LocalServerSocket serverSocket;
+    private final LocalSocket ls;
 
-    private volatile AtomicBoolean mCheckServiceRegisteredRunning = new AtomicBoolean(false);
+    private final AtomicBoolean mCheckServiceRegisteredRunning = new AtomicBoolean(false);
     private Thread mServiceRegistration;
 
     public interface FileDownloadListener {
@@ -180,9 +183,9 @@ public class Server {
 
                 try {
                     new Scanner(new File(tor.getServiceDir(), "hs_ed25519_secret_key"));
-                    new Scanner(new File(tor.getServiceDir(), "rsaPrivateKey"));
+                    new Scanner(new File(tor.getServiceDir(), "ecdsaPrivateKey"));
                 } catch (FileNotFoundException fnfe) {
-                    genRSAKeyPairAndSaveToFile(1024, Tor.getInstance(mContext).getServiceDir().getPath());
+                    genECDSAKeyPairAndSaveToFile(Tor.getInstance(mContext).getServiceDir().getPath());
                 }
                 client.askForNewMessages();
 
@@ -561,23 +564,19 @@ public class Server {
         void onChange(boolean registered);
     }
 
-    public static void genRSAKeyPairAndSaveToFile(int keyLength, String dir) {
-        KeyPair keyPair = genRSAKeyPair(keyLength);
+    public static void genECDSAKeyPairAndSaveToFile(String dir) {
+        KeyPair keyPair = genECDSAKeyPair();
 
         PublicKey publicKey = keyPair.getPublic();
         PrivateKey privateKey = keyPair.getPrivate();
         Base64.Encoder encoder = Base64.getEncoder();
         Writer out = null;
         try {
-            out = new FileWriter(dir + "/rsaPublicKey");
-            out.write("-----BEGIN RSA PUBLIC KEY-----\n");
+            out = new FileWriter(dir + "/ecdsaPublicKey");
             out.write(encoder.encodeToString(publicKey.getEncoded()));
-            out.write("\n-----END RSA PUBLIC KEY-----\n");
             out.close();
-            out = new FileWriter(dir + "/rsaPrivateKey");
-            out.write("-----BEGIN RSA PRIVATE KEY-----\n");
+            out = new FileWriter(dir + "/ecdsaPrivateKey");
             out.write(encoder.encodeToString(privateKey.getEncoded()));
-            out.write("\n-----END RSA PRIVATE KEY-----\n");
 
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -592,10 +591,12 @@ public class Server {
         }
     }
 
-    public static KeyPair genRSAKeyPair(int keyLength) {
+    public static KeyPair genECDSAKeyPair() {
         try {
-            KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance("RSA");
-            keyPairGenerator.initialize(keyLength);
+            Security.insertProviderAt(new org.spongycastle.jce.provider.BouncyCastleProvider(), 1);
+            ECGenParameterSpec ecGenSpec = new ECGenParameterSpec("prime256v1");
+            KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance("ECDH", "SC");
+            keyPairGenerator.initialize(ecGenSpec, new SecureRandom());
             return keyPairGenerator.generateKeyPair();
         } catch (Exception e) {
             throw new RuntimeException(e);
