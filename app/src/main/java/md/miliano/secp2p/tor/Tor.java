@@ -10,7 +10,6 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
 import java.security.InvalidKeyException;
 import java.security.KeyFactory;
@@ -19,12 +18,12 @@ import java.security.NoSuchProviderException;
 import java.security.PublicKey;
 import java.security.Security;
 import java.security.Signature;
-import java.security.interfaces.RSAPrivateKey;
+import java.security.interfaces.ECPrivateKey;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.PKCS8EncodedKeySpec;
-import java.security.spec.RSAPrivateKeySpec;
-import java.security.spec.RSAPublicKeySpec;
+import java.security.spec.X509EncodedKeySpec;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import javax.crypto.BadPaddingException;
@@ -37,26 +36,31 @@ import md.miliano.secp2p.utils.Util;
 
 public class Tor {
 
-    private static String torname = "ctor";
-    private static String tordirname = "tordata";
-    private static String torSvcDir = "torSvc";
-    private static String torCfg = "torcfg";
-    private static int HIDDEN_SERVICE_VERSION = 3;
+    private static final String torname = "ctor";
+    private static final String tordirname = "tordata";
+    private static final String torSvcDir = "torSvc";
+    private static final String torCfg = "torcfg";
+    private static final int HIDDEN_SERVICE_VERSION = 3;
     private static Tor instance = null;
-    private Context mContext;
-    private static int mSocksPort = 9151;
-    private static int mHttpPort = 8191;
+    private final Context mContext;
+    private static final int mSocksPort = 9151;
+    private static final int mHttpPort = 8191;
     private String mDomain = "";
-    private ArrayList<Listener> mListeners;
-    private ArrayList<LogListener> mLogListeners;
+    private final ArrayList<Listener> mListeners;
+    private final ArrayList<LogListener> mLogListeners;
     private String status = "";
     private boolean mReady = false;
 
-    private File mTorDir;
+    private final File mTorDir;
 
     private Process mProcessTor;
 
-    private AtomicBoolean mRunning = new AtomicBoolean(false);
+    private final AtomicBoolean mRunning = new AtomicBoolean(false);
+
+    static {
+        Security.removeProvider("BC");
+        Security.insertProviderAt(new BouncyCastleProvider(), 1);
+    }
 
     private Tor(Context c) {
 
@@ -120,7 +124,7 @@ public class Tor {
                     sb.append(" ");
                 }
 
-                log("Command: " + sb.toString());
+                log("Command: " + sb);
 
                 mRunning.set(true);
 
@@ -142,7 +146,7 @@ public class Tor {
                             for (Listener l : mListeners) {
                                 if (l != null) l.onChange();
                             }
-                        } catch (Exception e) {
+                        } catch (Exception ignored) {
                         }
                         ready2 = true;
 
@@ -155,7 +159,7 @@ public class Tor {
                                 ll.onLog();
                             }
                         }
-                    } catch (Exception e) {
+                    } catch (Exception ignored) {
 
                     }
                 }
@@ -188,7 +192,7 @@ public class Tor {
     void ls(File f) {
         log(f.toString());
         if (f.isDirectory()) {
-            for (File s : f.listFiles()) {
+            for (File s : Objects.requireNonNull(f.listFiles())) {
                 ls(s);
             }
         }
@@ -222,47 +226,32 @@ public class Tor {
     }
 
     private KeyFactory getKeyFactory() {
-        Security.addProvider(new BouncyCastleProvider());
         try {
-            return KeyFactory.getInstance("RSA");
+            return KeyFactory.getInstance("ECDSA");
         } catch (Exception ex) {
             throw new Error(ex);
         }
     }
 
-
-    public RSAPrivateKey getPrivateKey() {
+    public byte[] getPublicKeyBytes() {
         try {
-            String sk = Util.filestr(new File(getServiceDir(), "rsaPrivateKey"));
-            sk = sk.replace("-----BEGIN RSA PRIVATE KEY-----\n", "");
-            sk = sk.replace("-----END RSA PRIVATE KEY-----", "");
-            sk = sk.replaceAll("\\s", "");
-            return (RSAPrivateKey) getKeyFactory().generatePrivate(new PKCS8EncodedKeySpec(Base64.decode(sk, Base64.DEFAULT)));
-        } catch (InvalidKeySpecException ex) {
+            return Base64.decode(Util.filestr(new File(getServiceDir(), "ecdsaPublicKey")).replaceAll("\\s", ""), Base64.DEFAULT);
+        } catch (Exception ex) {
             throw new Error(ex);
         }
     }
 
-    private RSAPrivateKeySpec getPrivateKeySpec() {
+    public ECPrivateKey getPrivateKey() {
         try {
-            return getKeyFactory().getKeySpec(getPrivateKey(), RSAPrivateKeySpec.class);
+            return (ECPrivateKey) getKeyFactory().generatePrivate(new PKCS8EncodedKeySpec(Base64.decode(Util.filestr(new File(getServiceDir(), "ecdsaPrivateKey")).replaceAll("\\s", ""), Base64.DEFAULT)));
         } catch (InvalidKeySpecException ex) {
             throw new Error(ex);
         }
-    }
-
-    private RSAPublicKeySpec getPublicKeySpec() {
-        return new RSAPublicKeySpec(getPrivateKeySpec().getModulus(), BigInteger.valueOf(65537));
-    }
-
-    public byte[] getPubKeySpec() {
-        return getPrivateKeySpec().getModulus().toByteArray();
     }
 
     public byte[] sign(byte[] msg) {
         try {
-            Signature signature;
-            signature = Signature.getInstance("SHA1withRSA");
+            Signature signature = Signature.getInstance("SHA256withECDSA", "SC");
             signature.initSign(getPrivateKey());
             signature.update(msg);
             return signature.sign();
@@ -275,46 +264,35 @@ public class Tor {
         if (mProcessTor != null) mProcessTor.destroy();
     }
 
-    public String encryptByPublicKey(String data, byte[] pubKeySpecBytes) throws NoSuchPaddingException, NoSuchAlgorithmException, BadPaddingException, IllegalBlockSizeException, InvalidKeyException, InvalidKeySpecException, NoSuchProviderException {
-        RSAPublicKeySpec publicKeySpec = new RSAPublicKeySpec(new BigInteger(pubKeySpecBytes), BigInteger.valueOf(65537));
-        PublicKey publicKey = getKeyFactory().generatePublic(publicKeySpec);
-        Cipher encrypt;
-        encrypt = Cipher.getInstance("RSA/ECB/PKCS1Padding");
-        encrypt.init(Cipher.ENCRYPT_MODE, publicKey);
-        String encrypted = AdvancedCrypto.toHex(encrypt.doFinal(data.getBytes(StandardCharsets.UTF_8)));
+    public String encryptByPublicKey(String data, byte[] pubKeyBytes) throws NoSuchPaddingException, NoSuchAlgorithmException, BadPaddingException, IllegalBlockSizeException, InvalidKeyException, InvalidKeySpecException, NoSuchProviderException {
+        PublicKey publicKey = getKeyFactory().generatePublic(new X509EncodedKeySpec(pubKeyBytes));
+        Cipher cipher = Cipher.getInstance("ECIES", BouncyCastleProvider.PROVIDER_NAME);
+        cipher.init(Cipher.ENCRYPT_MODE, publicKey);
+        String encrypted = AdvancedCrypto.toHex(cipher.doFinal(data.getBytes(StandardCharsets.UTF_8)));
         log("CIPHER - encryptByPublicKey : " + encrypted);
         return encrypted;
     }
 
     public String decryptByPrivateKey(String data) throws NoSuchPaddingException, NoSuchAlgorithmException, BadPaddingException, IllegalBlockSizeException, InvalidKeyException, NoSuchProviderException {
-        Cipher decrypt;
-        decrypt = Cipher.getInstance("RSA/ECB/PKCS1Padding");
-        decrypt.init(Cipher.DECRYPT_MODE, getPrivateKey());
+        Cipher cipher = Cipher.getInstance("ECIES", "SC");
+        cipher.init(Cipher.DECRYPT_MODE, getPrivateKey());
         log("CIPHER - decryptByPrivateKey : " + data);
-        return new String(decrypt.doFinal(AdvancedCrypto.toByte(data)), StandardCharsets.UTF_8);
+        return new String(cipher.doFinal(AdvancedCrypto.toByte(data)), StandardCharsets.UTF_8);
     }
 
-    boolean checkSig(byte[] pubKey, byte[] sig, byte[] msg) {
-        RSAPublicKeySpec publicKeySpec = new RSAPublicKeySpec(new BigInteger(pubKey), BigInteger.valueOf(65537));
-
-        PublicKey publicKey;
+    boolean checkSig(byte[] pubKey, byte[] sig, byte[] msg) throws InvalidKeySpecException {
+        PublicKey publicKey = getKeyFactory().generatePublic(new X509EncodedKeySpec(pubKey));
+        boolean ret;
         try {
-            publicKey = getKeyFactory().generatePublic(publicKeySpec);
-        } catch (InvalidKeySpecException ex) {
-            ex.printStackTrace();
-            return false;
-        }
-
-        try {
-            Signature signature;
-            signature = Signature.getInstance("SHA1withRSA");
-            signature.initVerify(publicKey);
-            signature.update(msg);
-            return signature.verify(sig);
+            Signature ECDSA = Signature.getInstance("SHA256withECDSA", new BouncyCastleProvider());
+            ECDSA.initVerify(publicKey);
+            ECDSA.update(msg);
+            ret = ECDSA.verify(sig);
         } catch (Exception ex) {
             ex.printStackTrace();
-            return false;
+            ret = false;
         }
+        return ret;
     }
 
     public void addLogListener(LogListener l) {

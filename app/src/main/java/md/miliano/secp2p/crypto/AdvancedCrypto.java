@@ -22,19 +22,19 @@ import javax.crypto.spec.SecretKeySpec;
 
 public class AdvancedCrypto {
 
-    private static String CIPHER_ALGORITHM = "AES/CBC/PKCS5Padding";
-    private static int IV_LENGTH = 16;
-    private static String SECRET_KEY_ALGORITHM = "AES";
-    private static String RANDOM_ALGORITHM = "SHA1PRNG";
-    private static int KEY_SIZE = 256;
+    private static final String CIPHER_ALGORITHM = "AES/CBC/PKCS5Padding";
+    private static final int IV_LENGTH = 16;
+    private static final String SECRET_KEY_ALGORITHM = "AES";
+    private static final String RANDOM_ALGORITHM = "SHA1PRNG";
+    private static final int KEY_SIZE = 256;
 
 
-    private static String SALT = "E79A7E78A03C";
+    private static final String SALT = "E79A7E78A03C";
 
 
-    private static int PBE_ITERATION_COUNT = 100;
+    private static final int PBE_ITERATION_COUNT = 100;
 
-    private static String PBE_ALGORITHM = "PBEWithSHA256And256BitAES-CBC-BC";
+    private static final String PBE_ALGORITHM = "PBEWithSHA256And256BitAES-CBC-BC";
 
     private String key;
 

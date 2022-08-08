@@ -119,10 +119,9 @@ public class Sock {
         return readString();
     }
 
-    public boolean queryAndClose(String... request) {
-        boolean x = queryBool(request);
+    public void queryAndClose(String... request) {
+        queryBool(request);
         close();
-        return x;
     }
 
     public String queryAndCloseString(String... request) {

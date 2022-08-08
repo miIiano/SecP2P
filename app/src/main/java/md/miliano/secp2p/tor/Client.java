@@ -78,7 +78,7 @@ public class Client {
         tr.setDescription(description);
 
         td.setData(gson.toJson(tr));
-        td.setPubKeySpec(Util.base64encode(tor.getPubKeySpec()));
+        td.setPubKeySpec(Util.base64encode(tor.getPublicKeyBytes()));
         td.setSignature(Util.base64encode(tor.sign(("add " + sender + " " + td.getData()).getBytes(StandardCharsets.UTF_8))));
 
         String content = gson.toJson(td);
@@ -109,7 +109,7 @@ public class Client {
         tr.setDescription(mDatabase.get("description"));
 
         td.setData(gson.toJson(tr));
-        td.setPubKeySpec(Util.base64encode(tor.getPubKeySpec()));
+        td.setPubKeySpec(Util.base64encode(tor.getPublicKeyBytes()));
         td.setSignature(Util.base64encode(tor.sign(("pubKey " + sender + " " + td.getData()).getBytes(StandardCharsets.UTF_8))));
 
         String content = gson.toJson(td);
@@ -339,7 +339,7 @@ public class Client {
         String cmd = "newmsg " + receiver + " " + sender + " " + System.currentTimeMillis() / 60000 * 60000;
         connect(receiver).queryAndClose(
                 cmd,
-                Util.base64encode(tor.getPubKeySpec()),
+                Util.base64encode(tor.getPublicKeyBytes()),
                 Util.base64encode(tor.sign(cmd.getBytes(StandardCharsets.UTF_8)))
         );
     }

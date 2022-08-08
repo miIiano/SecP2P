@@ -31,13 +31,13 @@ import md.miliano.secp2p.utils.Util;
 
 public class SecP2PHostService extends Service {
 
-    private String TAG = "SecP2PHostService";
+    private final String TAG = "SecP2PHostService";
     private Timer mTimer;
     private Client mClient;
     private Server mServer;
     private Tor mTor;
     private PowerManager.WakeLock wakeLock;
-    private static String CHANNEL_ID = "SecP2P_SERVICE";
+    private static final String CHANNEL_ID = "SecP2P_SERVICE";
     public static final int ID_SERVICE = 101;
 
     private Merlin mMerlin;
@@ -84,13 +84,14 @@ public class SecP2PHostService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        String action = (intent!=null && intent.getAction()!=null)?intent.getAction():Util.FGSAction.START.name();
         if(BuildConfig.DEBUG){
-            Toast.makeText(this, "SecP2PHostService -> action : " + intent.getAction().toUpperCase(Locale.ROOT), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "SecP2PHostService -> action : " + action.toUpperCase(Locale.ROOT), Toast.LENGTH_SHORT).show();
         }
-        if (intent.getAction().equals(Util.FGSAction.STOP.name())) {
+        if (action.equals(Util.FGSAction.STOP.name())) {
             stopForeground(true);
             stopSelf();
-        } else if (intent.getAction().equals(Util.FGSAction.START.name())) {
+        } else if (action.equals(Util.FGSAction.START.name())) {
             Server.getInstance(this);
             Tor.getInstance(this);
             Client.getInstance(this);
@@ -100,9 +101,9 @@ public class SecP2PHostService extends Service {
         return START_STICKY;
     }
 
-    private Tor.LogListener mTorLogListener = () -> update();
+    private final Tor.LogListener mTorLogListener = () -> update();
 
-    private Server.ServiceRegisterListener mSrl = registered -> {
+    private final Server.ServiceRegisterListener mSrl = registered -> {
         if (registered) {
             startForeground(getString(R.string.id_registered), 100);
         } else {

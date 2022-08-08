@@ -54,8 +54,8 @@ public class CreateZip extends AsyncTask<Void, Void, String> {
         String hiddenSvcPrivateKey = "tor/torSvc/hs_ed25519_secret_key";
         String hiddenSvcPublicKey = "tor/torSvc/hs_ed25519_public_key";
         String hostname = "tor/torSvc/hostname";
-        String rsaPrivateKey = "tor/torSvc/rsaPrivateKey";
-        String rsaPublicKey = "tor/torSvc/rsaPublicKey";
+        String ecdsaPrivateKey = "tor/torSvc/ecdsaPrivateKey";
+        String ecdsaPublicKey = "tor/torSvc/ecdsaPublicKey";
 
         String settings = "settings.prop";
         String messageFile = "messages.json";
@@ -71,8 +71,8 @@ public class CreateZip extends AsyncTask<Void, Void, String> {
         }
         zipMgr.addZipFile(new File(mContext.getFilesDir(), hiddenSvcPrivateKey).getAbsolutePath(), hiddenSvcPrivateKey);
         zipMgr.addZipFile(new File(mContext.getFilesDir(), hiddenSvcPublicKey).getAbsolutePath(), hiddenSvcPublicKey);
-        zipMgr.addZipFile(new File(mContext.getFilesDir(), rsaPrivateKey).getAbsolutePath(), rsaPrivateKey);
-        zipMgr.addZipFile(new File(mContext.getFilesDir(), rsaPublicKey).getAbsolutePath(), rsaPublicKey);
+        zipMgr.addZipFile(new File(mContext.getFilesDir(), ecdsaPrivateKey).getAbsolutePath(), ecdsaPrivateKey);
+        zipMgr.addZipFile(new File(mContext.getFilesDir(), ecdsaPublicKey).getAbsolutePath(), ecdsaPublicKey);
         zipMgr.addZipFile(new File(mContext.getFilesDir(), hostname).getAbsolutePath(), hostname);
         zipMgr.addZipFile(new File(mContext.getCacheDir(), settings).getAbsolutePath(), settings);
         try {
