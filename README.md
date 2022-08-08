@@ -1,6 +1,6 @@
 # SecP2P
 
-This is a Tor based peer to peer, encrypted messaging app. The goal of this project is to bring real-time messaging on Tor, enabling users to chat each other with anonymity in mind. This version of the app is on very initial stages however it provides text messaging with media sharing capability.
+This is a peer to peer end-to-end built on Tor Network, encrypted messaging app. The goal of this project is to bring real-time messaging on Tor, enabling users to chat each other with anonymity in mind. This version of the app is on very initial stages however it provides text messaging with media sharing capability.
 
 ## Technical Details
 
